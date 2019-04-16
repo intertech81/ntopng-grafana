@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  ntopng:
+    build: .
+    container_name: ntopng
+    network_mode: "host"
+    volumes:
+      - /opt/appdata/ntopng:/var/lib/ntopng
+    restart:
+      always
+  influxdb:
+    image: influxdb:1.5.1
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - /opt/appdata/influxdb:/var/lib/influxdb
+    restart:
+      always
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3001:3000
+    volumes:
+      - /opt/appdata/grafana:/var/lib/grafana
+    restart:
+      always
